@@ -2,6 +2,7 @@
   "name": "YouTubeNotes",
   "version": "1.0.0",
   "manifest_version": 2,
+  "content_security_policy": "script-src 'self' https://apis.google.com; object-src 'self'",
   "description": "Youtube notes",
   "background": {
     "scripts": ["background.js"],
@@ -14,14 +15,14 @@
   "permissions" : [
     "declarativeContent",
     "activeTab",
-    "tabs"
+    "tabs",
+    "https://apis.google.com/"
   ],
   "content_scripts":
   [
       {
           "matches": ["*://*.youtube.com/*"],
-          "js": ["content.js"],
-          "run_at": "document_end"
+          "js": ["content.js"]
       }
   ]
 }
