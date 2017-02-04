@@ -12,11 +12,15 @@
   {
     "default_title" : "Add Youtube Notes"
   },
+  "icons":{
+    "48" : "half_logo.png"
+  },
   "permissions" : [
     "declarativeContent",
     "activeTab",
     "tabs"
   ],
+  "web_accessible_resources": ["sub_logo.png"],
   "content_scripts":
   [
       {
@@ -24,4 +28,5 @@
           "js": ["content.js"]
       }
   ]
+
 }

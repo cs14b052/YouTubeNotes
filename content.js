@@ -13,8 +13,24 @@ var button = document.createElement("button");
 var current_url;
 
 function enableContent() {
+	//<button id="subtitle-button" class="yt-uix-button yt-uix-button-size-default yt-uix-button-opacity yt-uix-button-has-icon action-panel-trigger-subtitle" type="button" onclick=";return false;" data-button-toggle="true"><span style="margin-right:9px;"><img src="chrome-extension://oanhbddbfkjaphdibnebkklpplclomal/images/subtitles_icon.svg" width="18px"></span><span class="yt-uix-button-content">Subtitles</span></button>
+
+if(document != null){
+	var button = document.createElement("button");
 	button.style.cursor = "pointer";
-	button.appendChild(document.createTextNode("YouTubeNotes"));
+	button.setAttribute('class','yt-uix-button yt-uix-button-size-default yt-uix-button-opacity yt-uix-button-has-icon');
+	var image = document.createElement('span');
+	image.style.marginRight = 'initial';
+	var logo = document.createElement('img');
+	logo.src = chrome.extension.getURL('sub_logo.png');
+	logo.style.width = '23px';
+	logo.style.height = '23px';
+	image.appendChild(logo);
+	button.appendChild(image);
+	var text = document.createElement("span");
+	text.innerText = 'YouTube Notes';
+	text.setAttribute('class','yt-uix-button-content');
+	button.appendChild(text);
 	button.addEventListener('click', function(){
 		if (!getEmailAddress()){
 			alert('Please sign into your gmail account to access this extension');
@@ -35,6 +51,9 @@ function addPanel(){
 		return a;
 	}
 	var sidePanel = document.createElement("div");
+	sidePanel.style.backgroundColor = "white";
+	sidePanel.style.overflowY = "scroll";
+	sidePanel.style.height = (videoContainer.clientHeight - 10 )+ "px";
 	sidePanel.id = "mainPanel";
 	sidePanel.style.backgroundColor = "white";
 	sidePanel.style.display = "block";
@@ -50,7 +69,6 @@ function addPanel(){
 		sidePanel.style.display = "none";
 	else
 		sidePanel.style.display = "block";
-	// console.log(sidePanel.style.display);
 	};
 	document.getElementsByClassName("ytp-size-button")[0].onclick = clickFunc;
 	document.getElementsByClassName("ytp-fullscreen-button")[0].onclick = clickFunc;
@@ -100,11 +118,34 @@ function addPanel(){
 	}
 	addBut.appendChild(document.createTextNode("+ Add Note"));
 	sidePanel.appendChild(addBut);
+	sidePanel.appendChild(addBut);
+	addBut.addEventListener('click',function(){
+		//TODO:contact server for this
+		var curtime = document.getElementsByClassName("ytp-time-current")[0].innerText;
+		console.log(curtime);
+		var emailid = document.getElementsByClassName("yt-masthead-picker-header yt-masthead-picker-active-account")[0].innerText;
+		console.log(emailid);
 
+		var inp = document.createElement("div");
+		var textbox = document.createElement("textarea");
+		var saveBut = document.createElement("button");
+		saveBut.appendChild(document.createTextNode("Save"));
+		saveBut.style.cursor="pointer";
+		inp.appendChild(textbox);
+		inp.appendChild(saveBut);
+		var view = document.createElement("details");
+		view.style.cursor = "pointer";
+		view.appendChild(inp);
+		sidePanel.appendChild(view);
+		saveBut.addEventListener('click',function(){
+			//TODO:save to the database.
+		});
+	});
+	
+	//TODO:get content from server
 
 	var sideBar = document.getElementById("watch7-sidebar-contents");
 	sideBar.insertBefore(sidePanel, sideBar.firstChild);
-
 	return sidePanel;
 }
 chrome.runtime.onMessage.addListener(
