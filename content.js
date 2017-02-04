@@ -14,8 +14,15 @@ function addPanel(){
 	var sidePanel = document.createElement("div");
 	sidePanel.appendChild(document.createElement("p").appendChild(document.createTextNode("dkjshdg")));
 	sidePanel.id = "mainPanel";
-	alert(videoContainer.clientHeight + " " + videoContainer.clientWidth);
-	var theatreMode = document.getElementsByClassName("ytp-size-button");
+	var theatreMode = document.getElementsByClassName("ytp-size-button")[0];
+	theatreMode.onclick = function(){
+		sidePanel.style.display = "none";
+	}
+	var fullMode = document.getElementByClassName("ytp-fullscreen-button")[0];
+	fullMode.onclick = function(){
+		sidePanel.style.display = "none";
+	}
+	
 	return sidePanel;
 }
 
