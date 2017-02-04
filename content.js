@@ -1,56 +1,55 @@
+if(window != null)
+	window.onkeyup = function(e){
+		if(e.which == 'f'){
+			if(sidePanel.style.display != "none")
+				sidePanel.style.display = "none";
+			else
+				sidePanel.style.display = "block";
+		}
+	}
+
 if(document != null){
 	var button = document.createElement("button");
 	button.style.cursor = "pointer";
 	button.appendChild(document.createTextNode("YouTubeNotes"));
 	button.addEventListener('click', function(){
 		var a = addPanel();
-<<<<<<< ab6ff6ab04472e2dc76f206d8f8ec2f933489b8c
-=======
-		
->>>>>>> adding the basic components for side panel
 	});
 	document.getElementById('watch8-secondary-actions').appendChild(button);
 }	
 function addPanel(){
 	var a = document.getElementById("mainPanel");
-	if(a != null && a.style.display!="none")
+	if(a != null && a.style.display != "none")
 		return a;
+	else if(a != null && a.style.display == "none"){
+		a.style.display = "block";
+		return a;
+	}
 	var videoContainer = document.getElementsByClassName("ytp-iv-video-content")[0];
 	var sidePanel = document.createElement("div");
-	sidePanel.style.backgroundColor = "rgb(127,8,4)";
-	sidePanel.style.height = videoContainer.clientHeight + "px";
+	sidePanel.style.backgroundColor = "white";
+	sidePanel.style.height = (videoContainer.clientHeight - 10 )+ "px";
 	// sidePanel.appendChild(document.createElement("p").appendChild(document.createTextNode("dkjshdg")));
 	sidePanel.id = "mainPanel";
 	sidePanel.style.display = "block";
+	sidePanel.style.position = "relative";
+	
 	var clickFunc = function () {
-		if(sidePanel.style.display != "none")
-			sidePanel.style.display = "none";
-		else
-			sidePanel.style.display = "block";
-		console.log(sidePanel.style.display);
+	if(sidePanel.style.display != "none")
+		sidePanel.style.display = "none";
+	else
+		sidePanel.style.display = "block";
+	// console.log(sidePanel.style.display);
 	};
 	document.getElementsByClassName("ytp-size-button")[0].onclick = clickFunc;
 	document.getElementsByClassName("ytp-fullscreen-button")[0].onclick = clickFunc;
-	document.getElementsByClassName("ytp-iv-video-content")[0].ondblclick = function(){
-		if(sidePanel.style.display != "none")
-			sidePanel.style.display = "none";
-		else
-			sidePanel.style.display = "block";
-		console.log(sidePanel.style.display);
-	};
-	window.addEventListener('onkeypress', function(e){
-		if(e.which == 27 || e.which == 'f'){ // key for esc 
-			if(sidePanel.style.display != "none")
-				sidePanel.style.display = "none";
-			else
-				sidePanel.style.display = "block";
-		}
-	});
-
 	var closeBut = document.createElement("button");
 	closeBut.style.cursor = "pointer";
 	closeBut.appendChild(document.createTextNode("close"));
-
+	
+	closeBut.style.position = "absolute";
+	closeBut.style.right = "0%";
+	closeBut.style.top = "0%";
 	//styling by Kaaaaaaavs
 
 	sidePanel.appendChild(closeBut);
