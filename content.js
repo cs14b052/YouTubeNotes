@@ -7,13 +7,23 @@ window.onkeyup = function(e){
 	}
 }
 
+var dictionary = {};
+var emailID;
 var button = document.createElement("button");
-button.style.cursor = "pointer";
-button.appendChild(document.createTextNode("YouTubeNotes"));
-button.addEventListener('click', function(){
-	var a = addPanel();
-});
-document.getElementById('watch8-secondary-actions').appendChild(button);
+var current_url;
+
+function enableContent() {
+	button.style.cursor = "pointer";
+	button.appendChild(document.createTextNode("YouTubeNotes"));
+	button.addEventListener('click', function(){
+		if (!getEmailAddress()){
+			alert('Please sign into your gmail account to access this extension');
+		}
+		else
+			var a = addPanel();
+	});
+	document.getElementById('watch8-secondary-actions').appendChild(button);	
+}
 
 function addPanel(){
 	var curNote = null;
@@ -77,9 +87,7 @@ function addPanel(){
 	addBut.style.color = "#a90909";
 	addBut.onclick = function(){
 		//contact server for this
-		if(curNote == null){
-			
-		}
+		var startTime = document.getElementsByClassName("ytp-time-current")[0].innerText;
 		var note = createNote();
 	}
 	addBut.onmouseenter = function(){
@@ -93,17 +101,6 @@ function addPanel(){
 	addBut.appendChild(document.createTextNode("+ Add Note"));
 	sidePanel.appendChild(addBut);
 
-	
-	
-	// var view = document.createElement("details");
-	// view.style.cursor = "pointer";
-	// view.appendChild(document.createTextNode("Notes"));
-
-	// //styling by Kaaaaaaavs
-
-	// sidePanel.appendChild(view);
-	
-	//get content from server
 
 	var sideBar = document.getElementById("watch7-sidebar-contents");
 	sideBar.insertBefore(sidePanel, sideBar.firstChild);
@@ -112,10 +109,19 @@ function addPanel(){
 }
 chrome.runtime.onMessage.addListener(
 	function(request, sender, sendResponse){
-		alert('sfkjsd');
-		if(request.greeting == "hello"){
-			sendResponse({farewell : "goodbye!!"});
-		}
+		current_url = request.url;
+		enableContent();
 	}
 );
 
+function getEmailAddress(argument) {
+	var emailElement = document.getElementsByClassName("yt-masthead-picker-header yt-masthead-picker-active-account");
+	if (emailElement.length == 0) {
+		return false;
+	}
+	else
+	{
+		emailID = emailElement[0].innerText;
+		return true;
+	}
+}

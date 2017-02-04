@@ -15,8 +15,7 @@
   "permissions" : [
     "declarativeContent",
     "activeTab",
-    "tabs",
-    "https://apis.google.com/"
+    "tabs"
   ],
   "content_scripts":
   [
