@@ -5,26 +5,42 @@ if(document != null){
 	button.appendChild(document.createTextNode("YouTubeNotes"));
 	button.addEventListener('click', function(){
 		var a = addPanel();
-		console.log(a);
 	});
 	document.getElementById('watch8-secondary-actions').appendChild(button);
 }	
 function addPanel(){
 	var a = document.getElementById("mainPanel");
-	if(a != null)
+	if(a != null && a.style.display != "none")
 		return a;
 	var videoContainer = document.getElementsByClassName("ytp-iv-video-content")[0];
 	var sidePanel = document.createElement("div");
 	sidePanel.appendChild(document.createElement("p").appendChild(document.createTextNode("dkjshdg")));
 	sidePanel.id = "mainPanel";
-	var theatreMode = document.getElementsByClassName("ytp-size-button")[0];
-	theatreMode.onclick = function(){
-		sidePanel.style.display = "none";
-	}
-	var fullMode = document.getElementsByClassName("ytp-fullscreen-button")[0];
-	fullMode.onclick = function(){
-		sidePanel.style.display = "none";
-	}
+	sidePanel.style.display = "block";
+	var clickFunc = function () {
+		if(sidePanel.style.display != "none")
+			sidePanel.style.display = "none";
+		else
+			sidePanel.style.display = "block";
+		console.log(sidePanel.style.display);
+	};
+	document.getElementsByClassName("ytp-size-button")[0].onclick = clickFunc;
+	document.getElementsByClassName("ytp-fullscreen-button")[0].onclick = clickFunc;
+	document.getElementsByClassName("ytp-iv-video-content")[0].ondblclick = function(){
+		if(sidePanel.style.display != "none")
+			sidePanel.style.display = "none";
+		else
+			sidePanel.style.display = "block";
+		console.log(sidePanel.style.display);
+	};
+	window.addEventListener('onkeypress', function(e){
+		if(e.which == 27 || e.which == 'f'){ // key for esc 
+			if(sidePanel.style.display != "none")
+				sidePanel.style.display = "none";
+			else
+				sidePanel.style.display = "block";
+		}
+	});
 	var sideBar = document.getElementById("watch7-sidebar-contents");
 	sideBar.insertBefore(sidePanel, sideBar.firstChild);
 	return sidePanel;
