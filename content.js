@@ -1,36 +1,95 @@
-chrome.runtime.onMessage.addListener(
-  function(request, sender, sendResponse) {
-    if (request.greeting == "hello")
-    {
-    	alert('meghana1');
-    	 var head = document.getElementsByTagName('head')[0];
- var script = document.createElement('script');
- script.type = 'text/javascript';
- script.src = "https://apis.google.com/js/platform.js";
- head.appendChild(script);
+if(window != null)
+	window.onkeyup = function(e){
+		if(e.which == 'f'){
+			if(sidePanel.style.display != "none")
+				sidePanel.style.display = "none";
+			else
+				sidePanel.style.display = "block";
+		}
+	}
 
-    	start();
-    	// 1. Load the JavaScript client library.
-		gapi.load('client:auth2', start);
-      sendResponse({farewell: "goodbye"});
-    }
-  });
+if(document != null){
+	var button = document.createElement("button");
+	button.style.cursor = "pointer";
+	button.appendChild(document.createTextNode("YouTubeNotes"));
+	button.addEventListener('click', function(){
+		var a = addPanel();
+	});
+	document.getElementById('watch8-secondary-actions').appendChild(button);
+}	
+function addPanel(){
+	var a = document.getElementById("mainPanel");
+	if(a != null && a.style.display != "none")
+		return a;
+	else if(a != null && a.style.display == "none"){
+		a.style.display = "block";
+		return a;
+	}
+	var videoContainer = document.getElementsByClassName("ytp-iv-video-content")[0];
+	var sidePanel = document.createElement("div");
+	sidePanel.style.backgroundColor = "white";
+	sidePanel.style.height = (videoContainer.clientHeight - 10 )+ "px";
+	// sidePanel.appendChild(document.createElement("p").appendChild(document.createTextNode("dkjshdg")));
+	sidePanel.id = "mainPanel";
+	sidePanel.style.display = "block";
+	sidePanel.style.position = "relative";
+	
+	var clickFunc = function () {
+	if(sidePanel.style.display != "none")
+		sidePanel.style.display = "none";
+	else
+		sidePanel.style.display = "block";
+	// console.log(sidePanel.style.display);
+	};
+	document.getElementsByClassName("ytp-size-button")[0].onclick = clickFunc;
+	document.getElementsByClassName("ytp-fullscreen-button")[0].onclick = clickFunc;
+	var closeBut = document.createElement("button");
+	closeBut.style.cursor = "pointer";
+	closeBut.appendChild(document.createTextNode("close"));
+	
+	closeBut.style.position = "absolute";
+	closeBut.style.right = "0%";
+	closeBut.style.top = "0%";
+	//styling by Kaaaaaaavs
 
-function start() {
-  // 2. Initialize the JavaScript client library.
-  gapi.client.init({
-    'apiKey': 'AIzaSyDDPZE3jMox6P6flEPShAsaL6f6FktV8bE',
-    'discoveryDocs': ['https://people.googleapis.com/$discovery/rest'],
-    // clientId and scope are optional if auth is not required.
-    'clientId': '521310469536-ttgpv9d655urh39j46fcas7bmmccvb3s.apps.googleusercontent.com',
-    'scope': 'https://www.googleapis.com/auth/plus.me https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile',
-  }).then(function() {
-    // 3. Initialize and make the API request.
-    alert('meghana2');
-    return gapi.client.plus.people.get( {'userId' : 'me'} ).execute(function(resp) {
-    	// Shows profile information
-    	alert(resp);
-  	});
-  });
+	sidePanel.appendChild(closeBut);
+	closeBut.addEventListener('click',function(){
+		sidePanel.style.display="none";
+	});
 
+	var addBut = document.createElement("button");
+	addBut.style.cursor = "pointer";
+	addBut.appendChild(document.createTextNode("+ Add Note"));
+
+	//styling by Kaaaaaaavs
+
+	sidePanel.appendChild(addBut);
+	addBut.addEventListener('click',function(){
+		//contact server for this
+	});
+
+	var view = document.createElement("details");
+	view.style.cursor = "pointer";
+	view.appendChild(document.createTextNode("Notes"));
+
+	//styling by Kaaaaaaavs
+
+	sidePanel.appendChild(view);
+	
+	//get content from server
+
+	var sideBar = document.getElementById("watch7-sidebar-contents");
+	sideBar.insertBefore(sidePanel, sideBar.firstChild);
+
+	return sidePanel;
 }
+
+chrome.runtime.onMessage.addListener(
+	function(request, sender, sendResponse){
+		alert('sfkjsd');
+		if(request.greeting == "hello"){
+			sendResponse({farewell : "goodbye!!"});
+		}
+	}
+);
+
