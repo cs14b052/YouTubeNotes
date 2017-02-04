@@ -10,6 +10,9 @@ if(document != null){
 	document.getElementById('watch8-secondary-actions').appendChild(button);
 }	
 function addPanel(){
+	var a = document.getElementById("mainPanel");
+	if(a != null)
+		return a;
 	var videoContainer = document.getElementsByClassName("ytp-iv-video-content")[0];
 	var sidePanel = document.createElement("div");
 	sidePanel.appendChild(document.createElement("p").appendChild(document.createTextNode("dkjshdg")));
@@ -18,11 +21,12 @@ function addPanel(){
 	theatreMode.onclick = function(){
 		sidePanel.style.display = "none";
 	}
-	var fullMode = document.getElementByClassName("ytp-fullscreen-button")[0];
+	var fullMode = document.getElementsByClassName("ytp-fullscreen-button")[0];
 	fullMode.onclick = function(){
 		sidePanel.style.display = "none";
 	}
-	
+	var sideBar = document.getElementById("watch7-sidebar-contents");
+	sideBar.insertBefore(sidePanel, sideBar.firstChild);
 	return sidePanel;
 }
 
