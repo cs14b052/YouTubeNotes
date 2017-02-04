@@ -13,7 +13,7 @@
     "default_title" : "Add Youtube Notes"
   },
   "icons":{
-    "48" : "half_logo.png"
+    "128" : "half_logo.png"
   },
   "permissions" : [
     "declarativeContent",
