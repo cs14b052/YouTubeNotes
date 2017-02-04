@@ -1,9 +1,9 @@
-showHide();
-
-function showHide() {
-    var el = document.getElementById("watch-discussion");
-    if( el && el.style.display == 'none')
-        el.style.display = 'block';
-    else if( el )
-        el.style.display = 'none';
-}
+chrome.runtime.onMessage.addListener(
+  function(request, sender, sendResponse) {
+  	alert('hfgbvrb');
+    alert(sender.tab ?
+                "from a content script:" + sender.tab.url :
+                "from the extension");
+    if (request.greeting == "hello")
+      sendResponse({farewell: "goodbye"});
+  });

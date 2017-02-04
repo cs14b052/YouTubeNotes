@@ -2,18 +2,19 @@
   "name": "YouTubeNotes",
   "version": "1.0.0",
   "manifest_version": 2,
-  "description": "Toggle comment visibility on YouTube.com",
+  "description": "Youtube notes",
   "background": {
     "scripts": ["background.js"],
     "persistent": true
   },
   "page_action" :
   {
-    "default_title" : "Toggle YouTube comments"
+    "default_title" : "Add Youtube Notes"
   },
   "permissions" : [
     "declarativeContent",
-    "activeTab"
+    "activeTab",
+    "tabs"
   ],
   "content_scripts":
   [
