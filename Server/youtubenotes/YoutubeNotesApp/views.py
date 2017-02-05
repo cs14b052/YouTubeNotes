@@ -22,8 +22,8 @@ def giveNotes(request):
 	except NotesDB.DoesNotExist:
 		return Response(status=status.HTTP_404_NOT_FOUND)
 
-	serializer = NotesSerializer(details,many=True)
-	return Response(serializer.notes)
+	serializer = NotesSerializer(notesSession,many=True)
+	return Response(serializer.data)
 
 @api_view(['POST'])
 def saveNotes(request):
